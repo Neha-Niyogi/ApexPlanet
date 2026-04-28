@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-card {
+    width: 850px;
+    border-radius: 20px;
+    overflow: hidden;
+    color: white;
+    background: linear-gradient(to bottom, rgba(30,41,59,0.8), rgba(15,23,42,1));
+    backdrop-filter: blur(10px);
+}
+
+/* Top Section */
+.top {
+    padding: 30px;
+    background: radial-gradient(circle, #334155, #1e293b);
+}
+
+.location {
+    font-size: 14px;
+    letter-spacing: 2px;
+    opacity: 0.7;
+}
+
+.temp {
+    font-size: 70px;
+    font-weight: 600;
+}
+
+.condition {
+    float: right;
+    text-align: right;
+    margin-top: -60px;
+}
+
+.condition h3 {
+    font-weight: 400;
+}
+
+.condition p {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+/* Bottom Section */
+.bottom {
+    display: flex;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.day {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.day:last-child {
+    border-right: none;
+}
+
+.day h4 {
+    font-weight: 400;
+    opacity: 0.7;
+}
+
+.deg {
+    font-size: 22px;
+    margin: 8px 0;
+}
+
+.rain {
+    font-size: 12px;
+    opacity: 0.6;
+}
