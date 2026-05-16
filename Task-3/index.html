@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BrainDrop</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<link rel="stylesheet" href="style3.css">
+</head>
+
+<body>
+
+<div class="blur blur1"></div>
+<div class="blur blur2"></div>
+
+<!-- AUDIO -->
+<audio id="correctSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
+<audio id="wrongSound" src="https://assets.mixkit.co/active_storage/sfx/2955/2955-preview.mp3"></audio>
+
+<!-- NAV -->
+<nav>
+
+<a href="#" class="logo" onclick="showHome()">Brain<span>Drop</span></a>
+
+<div class="nav-right">
+
+<a href="#" class="nav-link" onclick="showHome()">Home</a>
+
+<a href="#categories" class="nav-link">Categories</a>
+
+<button class="theme-btn" onclick="toggleTheme()">🌙</button>
+
+<a href="#" class="nav-pill" onclick="startQuiz()">Play Now →</a>
+
+</div>
+
+</nav>
+
+<!-- HOME -->
+<div id="home-section">
+
+<div id="hero">
+
+<div>
+
+<div class="hero-eyebrow">
+General Knowledge Quiz
+</div>
+
+<h1 class="hero-title">
+Test your <span class="accent-word">brain</span><br>
+every day.
+</h1>
+
+<p class="hero-desc">
+Challenge yourself with beautiful interactive quizzes,
+smooth animations, live scoring, and premium quiz experience.
+</p>
+
+</div>
+
+<div class="hero-meta">
+
+<div class="meta-box">
+<div class="meta-item">50+</div>
+<div class="meta-label">Questions</div>
+</div>
+
+<div class="meta-box">
+<div class="meta-item">6</div>
+<div class="meta-label">Categories</div>
+</div>
+
+</div>
+
+</div>
+
+<div id="categories">
+
+<div class="section-label">Choose Category</div>
+
+<div class="cat-grid">
+
+<div class="cat-card active" style="--cat-color:#d4522a" data-cat="general" onclick="selectCat(this)">
+<div class="cat-icon">🌍</div>
+<div class="cat-name">General Knowledge</div>
+<div class="cat-count">10 Questions</div>
+</div>
+
+<div class="cat-card" style="--cat-color:#2a6dd4" data-cat="science" onclick="selectCat(this)">
+<div class="cat-icon">🔬</div>
+<div class="cat-name">Science</div>
+<div class="cat-count">10 Questions</div>
+</div>
+
+<div class="cat-card" style="--cat-color:#1e7a4a" data-cat="history" onclick="selectCat(this)">
+<div class="cat-icon">🏛️</div>
+<div class="cat-name">History</div>
+<div class="cat-count">10 Questions</div>
+</div>
+
+<div class="cat-card" style="--cat-color:#8b5cf6" data-cat="geography" onclick="selectCat(this)">
+<div class="cat-icon">🗺️</div>
+<div class="cat-name">Geography</div>
+<div class="cat-count">10 Questions</div>
+</div>
+
+<div class="cat-card" style="--cat-color:#c0392b" data-cat="sports" onclick="selectCat(this)">
+<div class="cat-icon">⚽</div>
+<div class="cat-name">Sports</div>
+<div class="cat-count">10 Questions</div>
+</div>
+
+<div class="cat-card" style="--cat-color:#d4a017" data-cat="movies" onclick="selectCat(this)">
+<div class="cat-icon">🎬</div>
+<div class="cat-name">Movies</div>
+<div class="cat-count">10 Questions</div>
+</div>
+
+</div>
+
+<div style="margin-top:2rem">
+
+<div class="section-label">Difficulty</div>
+
+<div class="diff-row">
+
+<button class="diff-btn active" data-diff="easy" onclick="selectDiff(this)">Easy</button>
+
+<button class="diff-btn" data-diff="medium" onclick="selectDiff(this)">Medium</button>
+
+<button class="diff-btn" data-diff="hard" onclick="selectDiff(this)">Hard</button>
+
+<button class="diff-btn" data-diff="mixed" onclick="selectDiff(this)">Mixed</button>
+
+</div>
+
+</div>
+
+<div style="margin-top:2rem">
+
+<div class="section-label">Number of Questions</div>
+
+<div class="diff-row">
+
+<button class="diff-btn" data-num="5" onclick="selectNum(this)">5</button>
+
+<button class="diff-btn active" data-num="10" onclick="selectNum(this)">10</button>
+
+<button class="diff-btn" data-num="15" onclick="selectNum(this)">15</button>
+
+</div>
+
+</div>
+
+<div class="start-area">
+
+<button class="btn-start" onclick="startQuiz()">
+Start Quiz →
+</button>
+
+<div class="start-note">
+⏱ 20 seconds per question
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- QUIZ -->
+<div id="quiz-section">
+
+<div class="quiz-container">
+
+<div class="quiz-topbar">
+
+<div style="display:flex;gap:1rem;align-items:center">
+
+<div class="q-num" id="q-num"></div>
+
+<div class="cat-badge" id="cat-badge"></div>
+
+</div>
+
+<div id="score-display">
+Score: 0
+</div>
+
+</div>
+
+<div class="progress-track">
+<div class="progress-fill" id="prog-fill"></div>
+</div>
+
+<div class="timer-row">
+<div class="timer-pill" id="timer-pill">
+⏱ <span id="timer-text">20</span>s
+</div>
+</div>
+
+<div class="q-card">
+
+<div class="q-text" id="q-text"></div>
+
+<div class="options" id="options"></div>
+
+</div>
+
+<div class="feedback-bar" id="feedback"></div>
+
+<button class="btn-next" id="btn-next" onclick="nextQ()">
+Next →
+</button>
+
+</div>
+
+</div>
+
+<!-- RESULT -->
+<div id="result-section">
+
+<div class="result-container">
+
+<div class="result-hero">
+
+<div class="result-emoji" id="r-emoji"></div>
+
+<div class="result-score-big" id="r-score"></div>
+
+<div class="result-msg" id="r-msg"></div>
+
+<div class="result-sub" id="r-sub"></div>
+
+</div>
+
+<div class="stats-row">
+
+<div class="stat-card">
+<div class="stat-num green" id="s-correct"></div>
+<div class="stat-lbl">Correct</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-num red" id="s-wrong"></div>
+<div class="stat-lbl">Wrong</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-num" id="s-time"></div>
+<div class="stat-lbl">Avg Time</div>
+</div>
+
+</div>
+
+<div class="review-title">
+Answer Review
+</div>
+
+<div id="review-list"></div>
+
+<div class="result-btns">
+
+<button class="btn-retry" onclick="startQuiz()">
+Play Again →
+</button>
+
+<button class="btn-home" onclick="showHome()">
+← Home
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="script3.js"></script>
+</body>
+</html>
